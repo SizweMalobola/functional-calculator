@@ -13,6 +13,12 @@ function evaluate(val1, val2) {
   } else if (val1[val1.length - 1] == "x") {
     val1 = val1.slice(0, upperOutput.innerText.length - 2);
     return val1 * val2;
+  } else if (val1[val1.length - 1] == "-") {
+    val1 = val1.slice(0, upperOutput.innerText.length - 2);
+    return parseInt(val1) - parseInt(val2);
+  } else if (val1[val1.length - 1] == "+") {
+    val1 = val1.slice(0, upperOutput.innerText.length - 2);
+    return parseInt(val1) + parseInt(val2);
   }
 }
 /*
@@ -62,30 +68,28 @@ specialOperators.forEach(function (item) {
 });
 
 var newOperators = Array.from(document.querySelectorAll(".secondary"));
-var divideReg = /[÷]/g;
-var multiplyReg = /[x]/g;
 newOperators.forEach(function (item) {
   item.addEventListener("click", function (e) {
     if (currentOutput.innerText == "" && upperOutput.innerText == "") {
       return;
     } else {
       if (e.target.classList.contains("divide")) {
-        if (upperOutput.innerText == "") {
+        if (upperOutput.innerText == "" && currentOutput.innerText != "") {
           upperOutput.innerText = `${currentOutput.innerText} ÷`;
           currentOutput.innerText = "";
         } else if (
-          divideReg.test(upperOutput.innerText) &&
+          upperOutput.innerText != "" &&
           currentOutput.innerText != ""
         ) {
-          upperOutput.innerText = upperOutput.innerText.slice(
-            0,
-            upperOutput.innerText.length - 2
-          );
-          upperOutput.innerText = `${(
-            upperOutput.innerText / currentOutput.innerText
-          ).toFixed(2)} ÷`;
+          upperOutput.innerText = `${evaluate(
+            upperOutput.innerText,
+            currentOutput.innerText
+          )} ÷`;
           currentOutput.innerText = "";
-        } else if (upperOutput.innerText != "") {
+        } else if (
+          upperOutput.innerText != "" &&
+          currentOutput.innerText == ""
+        ) {
           upperOutput.innerText = upperOutput.innerText.slice(
             0,
             upperOutput.innerText.length - 2
@@ -94,27 +98,93 @@ newOperators.forEach(function (item) {
         }
       }
       if (e.target.classList.contains("multiply")) {
-        if (upperOutput.innerText == "") {
+        if (upperOutput.innerText == "" && currentOutput.innerText != "") {
           upperOutput.innerText = `${currentOutput.innerText} x`;
           currentOutput.innerText = "";
         } else if (
-          multiplyReg.test(upperOutput.innerText) &&
+          upperOutput.innerText != "" &&
           currentOutput.innerText != ""
+        ) {
+          upperOutput.innerText = `${evaluate(
+            upperOutput.innerText,
+            currentOutput.innerText
+          )} x`;
+          currentOutput.innerText = "";
+        } else if (
+          upperOutput.innerText != "" &&
+          currentOutput.innerText == ""
         ) {
           upperOutput.innerText = upperOutput.innerText.slice(
             0,
             upperOutput.innerText.length - 2
           );
-          upperOutput.innerText = `${
-            upperOutput.innerText * currentOutput.innerText
-          } x`;
+          upperOutput.innerText = `${upperOutput.innerText} x`;
+        }
+      }
+      if (e.target.classList.contains("minus")) {
+        if (upperOutput.innerText == "" && currentOutput.innerText != "") {
+          upperOutput.innerText = `${currentOutput.innerText} -`;
           currentOutput.innerText = "";
-        } else if (upperOutput.innerText != "") {
+        } else if (
+          upperOutput.innerText != "" &&
+          currentOutput.innerText != ""
+        ) {
+          upperOutput.innerText = `${evaluate(
+            upperOutput.innerText,
+            currentOutput.innerText
+          )} -`;
+          currentOutput.innerText = "";
+        } else if (
+          upperOutput.innerText != "" &&
+          currentOutput.innerText == ""
+        ) {
           upperOutput.innerText = upperOutput.innerText.slice(
             0,
             upperOutput.innerText.length - 2
           );
-          upperOutput.innerText = `${upperOutput.innerText} x`;
+          upperOutput.innerText = `${upperOutput.innerText} -`;
+        }
+      }
+      if (e.target.classList.contains("add")) {
+        if (upperOutput.innerText == "" && currentOutput.innerText != "") {
+          upperOutput.innerText = `${currentOutput.innerText} +`;
+          currentOutput.innerText = "";
+        } else if (
+          upperOutput.innerText != "" &&
+          currentOutput.innerText != ""
+        ) {
+          upperOutput.innerText = `${evaluate(
+            upperOutput.innerText,
+            currentOutput.innerText
+          )} +`;
+          currentOutput.innerText = "";
+        } else if (
+          upperOutput.innerText != "" &&
+          currentOutput.innerText == ""
+        ) {
+          upperOutput.innerText = upperOutput.innerText.slice(
+            0,
+            upperOutput.innerText.length - 2
+          );
+          upperOutput.innerText = `${upperOutput.innerText} +`;
+        }
+      }
+      if (e.target.classList.contains("equals")) {
+        if (upperOutput.innerText != "" && currentOutput.innerText == "") {
+          currentOutput.innerText = upperOutput.innerText.slice(
+            0,
+            upperOutput.innerText.length - 2
+          );
+          upperOutput.innerText = "";
+        } else if (
+          upperOutput.innerText != "" &&
+          currentOutput.innerText != ""
+        ) {
+          currentOutput.innerText = evaluate(
+            upperOutput.innerText,
+            currentOutput.innerText
+          );
+          upperOutput.innerText = "";
         }
       }
     }

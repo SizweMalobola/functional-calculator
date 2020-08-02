@@ -25,16 +25,18 @@ body {
   background-image: var(--main-bg-color);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #calculator-body {
   background-color: var(--calculator-bg-color);
   color: whitesmoke;
   width: 25rem;
+  padding: 0.5rem;
   /* border-radius: 100px; */
 }
 #calculator-display {
-  height: 10rem;
+  height: 8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,6 +50,7 @@ body {
   width: 100%;
   height: 100%;
   text-align: end;
+  font-size: 1.5rem;
 }
 #current {
   /* background-color: azure; */
