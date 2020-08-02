@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+}
+/* css variables */
+:root {
+  --main-bg-color: linear-gradient(to top right, hotpink, gold);
+  --calculator-font-size: 1.8rem;
+  --calculator-bg-color: black;
+  /* clear,change sign,decimal */
+  --operators-bg-first: rgb(124, 123, 123);
+  --operatorsh-bg-first: rgb(216, 213, 213);
+  /* rest of the operators */
+  --operators-bg-second: rgb(255, 159, 34);
+  --operatorsh-bg-second: rgb(250, 218, 177);
+  /* numbers */
+  --numbers-bg-color: rgb(66, 66, 66);
+  --numbersh-bg-color: rgb(175, 175, 175);
+}
+body {
+  height: 100vh;
+  width: 100vw;
+  background-image: var(--main-bg-color);
+  display: flex;
+  justify-content: center;
+}
+
+#calculator-body {
+  background-color: var(--calculator-bg-color);
+  color: whitesmoke;
+  width: 25rem;
+  /* border-radius: 100px; */
+}
+#calculator-display {
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* background-color: gray; */
+  padding: 1rem;
+  font-size: var(--calculator-font-size);
+}
+#upper {
+  /* background-color: white; */
+  color: rgb(197, 197, 197);
+  width: 100%;
+  height: 100%;
+  text-align: end;
+}
+#current {
+  /* background-color: azure; */
+  color: white;
+  width: 100%;
+  height: 100%;
+  text-align: end;
+}
+#calculator-input {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 2fr);
+  row-gap: 5px;
+  font-size: var(--calculator-font-size);
+}
+.cal-btn:nth-child(17) {
+  grid-column: 1/3;
+  height: 5rem;
+  width: 12.5rem;
+  place-self: center;
+  display: flex;
+  align-items: center;
+  padding-left: 2rem;
+  border-radius: 100px;
+}
+.cal-btn:not(:nth-child(17)) {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 100%;
+  place-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.primary {
+  background-color: var(--numbers-bg-color);
+  transition: background-color 0.1s;
+}
+.primary:hover {
+  cursor: pointer;
+}
+.primary:active {
+  background-color: var(--numbersh-bg-color);
+}
+.primary-inverse {
+  background-color: var(--operators-bg-first);
+  color: black;
+  transition: background-color 0.1s;
+  transition-timing-function: ease-out;
+}
+.primary-inverse:hover {
+  cursor: pointer;
+}
+.primary-inverse:active {
+  background-color: var(--operatorsh-bg-first);
+}
+.secondary {
+  background-color: var(--operators-bg-second);
+  transition: background-color 0.1s;
+  transition-timing-function: ease-out;
+}
+.secondary:hover {
+  cursor: pointer;
+}
+.secondary:active {
+  color: var(--operators-bg-second);
+  background-color: var(--operatorsh-bg-second);
+}
