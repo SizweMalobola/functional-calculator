@@ -3,9 +3,7 @@ var currentOutput = document.querySelector("#current");
 var upperOutput = document.querySelector("#upper");
 //variables input
 var numbers = document.querySelectorAll(".num");
-
-var operators = document.querySelectorAll(".operator");
-//
+//eval function
 function evaluate(val1, val2) {
   if (val1[val1.length - 1] == "÷") {
     val1 = val1.slice(0, upperOutput.innerText.length - 2);
@@ -15,21 +13,13 @@ function evaluate(val1, val2) {
     return val1 * val2;
   } else if (val1[val1.length - 1] == "-") {
     val1 = val1.slice(0, upperOutput.innerText.length - 2);
-    return parseInt(val1) - parseInt(val2);
+    return +val1 - +val2;
   } else if (val1[val1.length - 1] == "+") {
     val1 = val1.slice(0, upperOutput.innerText.length - 2);
-    return parseInt(val1) + parseInt(val2);
+    return +val1 + +val2;
   }
 }
-/*
-if user clickes on any of the operators while there are no numbers on screen,
-nothing is returned
-when a user clicks on a number and then clickes on a operator,
-the number and the operator clicked will be moved to upper.Leaving current empty.
->if the user clickes another number and operator,
-the previous operator will be used to eval the new number and previous number that was on upper and the new operator will stored at the end of the newly evaluated number.
->if only a operator is clicked at that point the operator at upper will be replaced by the newone that has just been pressed.
-*/
+//
 var newNum = Array.from(numbers);
 newNum.forEach(function (item) {
   item.addEventListener("click", function (e) {
