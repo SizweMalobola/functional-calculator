@@ -23,7 +23,13 @@ function evaluate(val1, val2) {
 var newNum = Array.from(numbers);
 newNum.forEach(function (item) {
   item.addEventListener("click", function (e) {
-    currentOutput.innerText += e.target.innerText;
+    if (e.target.innerText == "0") {
+      if (currentOutput.innerText != "") {
+        currentOutput.innerText += e.target.innerText;
+      }
+    } else {
+      currentOutput.innerText += e.target.innerText;
+    }
   });
 });
 
